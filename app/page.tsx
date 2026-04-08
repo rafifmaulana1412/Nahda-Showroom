@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { formatPrice } from "@/lib/data";
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
 import CarCard from "@/components/CarCard";
 import NahdaLogo from "@/components/NahdaLogo";
 
