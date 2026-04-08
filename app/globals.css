@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL FIX */
+body {
+  @apply bg-gray-50 text-gray-800;
+}
+
+/* BUTTON */
+.btn-primary {
+  @apply bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-primary-dark transition;
+}
+
+.btn-outline {
+  @apply border border-primary text-primary px-5 py-2 rounded-lg hover:bg-primary hover:text-white transition;
+}
+
+/* CARD */
+.card {
+  @apply bg-white rounded-2xl shadow-sm hover:shadow-lg transition;
+}
+
+/* BADGE */
+.badge-baru {
+  @apply bg-green-100 text-green-700 text-xs px-2 py-1 rounded;
+}
+
+.badge-bekas {
+  @apply bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded;
+}

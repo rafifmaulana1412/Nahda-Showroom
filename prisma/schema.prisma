@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  role     String @default("admin")
+}
+model Car {
+  id          String   @id @default(cuid())
+  name        String
+  brand       String
+  model       String
+  year        Int
+  price       Int
+  condition   String
+  transmission String
+  fuel        String
+  mileage     Int      @default(0)
+  color       String
+
+  images      String[]
+  description String   @db.Text
+  features    String[]
+
+  location    String?
+  paymentMethods String[]
+  contactPerson String?
+
+  isAvailable Boolean @default(true)
+  isFeatured  Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  contacts    Contact[]
+}
+model Contact {
+  id        String   @id @default(cuid())
+  carId     String?
+  car       Car?     @relation(fields: [carId], references: [id])
+  nama      String
+  telepon   String
+  email     String?
+  keperluan String
+  pesan     String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

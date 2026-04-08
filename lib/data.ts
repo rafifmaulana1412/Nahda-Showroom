@@ -1,0 +1,122 @@
+export const formatPrice = (price: number) =>
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(price);
+
+export const formatMileage = (km: number) =>
+  km === 0 ? "Baru" : `${new Intl.NumberFormat("id-ID").format(km)} km`;
+
+export const cars = [
+  {
+    id: "3",
+    name: "Toyota Kijang Innova Reborn 2.4 G AT 2021",
+    brand: "Toyota",
+    model: "Innova",
+    year: 2021,
+    price: 365000000,
+    condition: "bekas",
+    transmission: "matic",
+    fuel: "diesel",
+    mileage: 42000,
+    color: "Silver",
+    images: [
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
+    ],
+    description: "Innova Reborn diesel matic 2021, kondisi prima.",
+    features: ["7 Seater", "Diesel Turbo"],
+    isFeatured: true,
+    isAvailable: true,
+    createdAt: "2024-01-20",
+  },
+
+  {
+    id: "4",
+    name: "Mitsubishi Xpander Cross AT 2022",
+    brand: "Mitsubishi",
+    model: "Xpander",
+    year: 2022,
+    price: 285000000,
+    condition: "bekas",
+    transmission: "matic",
+    fuel: "bensin",
+    mileage: 31000,
+    color: "Hitam",
+    images: [
+      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80",
+    ],
+    description: "Xpander Cross kondisi sangat terawat.",
+    features: ["7 Seater", "Paddle Shift"],
+    isFeatured: true,
+    isAvailable: true,
+    createdAt: "2024-02-01",
+  },
+
+  {
+    id: "5",
+    name: "Daihatsu Ayla X MT 2021",
+    brand: "Daihatsu",
+    model: "Ayla",
+    year: 2021,
+    price: 105000000,
+    condition: "bekas",
+    transmission: "manual",
+    fuel: "bensin",
+    mileage: 38000,
+    color: "Biru",
+    images: [
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=800&q=80",
+    ],
+    description: "Ayla X MT 2021 irit bensin.",
+    features: ["AC", "Power Steering"],
+    isFeatured: false,
+    isAvailable: true,
+    createdAt: "2024-02-05",
+  },
+
+  {
+    id: "6",
+    name: "Suzuki Ertiga GX AT 2022",
+    brand: "Suzuki",
+    model: "Ertiga",
+    year: 2022,
+    price: 225000000,
+    condition: "bekas",
+    transmission: "matic",
+    fuel: "bensin",
+    mileage: 25000,
+    color: "Putih",
+    images: [
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80",
+    ],
+    description: "Ertiga GX AT 2022 putih bersih.",
+    features: ["7 Seater", "Touchscreen"],
+    isFeatured: false,
+    isAvailable: true,
+    createdAt: "2024-02-10",
+  },
+
+  {
+    id: "7",
+    name: "Honda HR-V 2024",
+    brand: "Honda",
+    model: "HR-V",
+    year: 2024,
+    price: 385000000,
+    condition: "baru",
+    transmission: "matic",
+    fuel: "bensin",
+    mileage: 0,
+    color: "Sonic Grey",
+    images: [
+      "https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=800&q=80",
+    ],
+    description: "Honda HR-V terbaru 2024.",
+    features: ["Honda Sensing"],
+    isFeatured: true,
+    isAvailable: true,
+    createdAt: "2024-02-15",
+  },
+];
