@@ -24,12 +24,12 @@ export default function KontakPage() {
                     "Jl. HOS. Cokroaminoto, Heledulaa, Kec. Kota Tim., Kota Gorontalo, Gorontalo 96119",
                 },
                 { icon: "📞", label: "Telepon", value: "+62 896-7733-2497" },
-                { icon: "✉️", label: "Email", value: "info@nahdashowroom.com" },
+                { icon: "✉️", label: "Email", value: "faadelgani14@gmail.com" },
                 {
                   icon: "🕐",
                   label: "Jam Operasional",
                   value:
-                    "Senin - Sabtu: 08.00 - 18.00 WIB\nMinggu: 09.00 - 15.00 WIB",
+                    "Senin - Sabtu: 08.30 - 19.30 WIB\nMinggu: 12.00 - 16.30 WIB",
                 },
               ].map((item) => (
                 <div key={item.label} className="flex gap-3">
@@ -47,7 +47,7 @@ export default function KontakPage() {
 
           {/* WhatsApp CTA */}
           <a
-            href="https://wa.me/6281234567890?text=Halo%20Nahda%20Showroom%2C%20saya%20ingin%20bertanya"
+            href="https://wa.me/6289677332497?text=Halo%20Nahda%20Showroom%2C%20saya%20ingin%20bertanya"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-4 bg-green-500 hover:bg-green-600 text-white rounded-2xl p-5 transition-colors"
