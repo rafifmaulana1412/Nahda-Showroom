@@ -16,12 +16,6 @@ const stats = [
 
 const categories = [
   {
-    label: "Mobil Baru",
-    icon: "🚗",
-    href: "/katalog?kondisi=baru",
-    desc: "Langsung dari dealer",
-  },
-  {
     label: "Mobil Bekas",
     icon: "🔑",
     href: "/katalog?kondisi=bekas",
