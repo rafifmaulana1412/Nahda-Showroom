@@ -288,7 +288,7 @@ export default function HomePage() {
               Lihat Katalog
             </Link>
             <a
-              href="https://wa.me/6281234567890?text=Halo%20Nahda%20Showroom%2C%20saya%20ingin%20konsultasi%20mobil"
+              href="https://wa.me/62289677332497?text=Halo%20Nahda%20Showroom%2C%20saya%20ingin%20konsultasi%20mobil"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-transparent border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-primary transition-colors"
