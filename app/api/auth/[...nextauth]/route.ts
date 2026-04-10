@@ -62,6 +62,14 @@ const handler = NextAuth({
     signIn: "/login",
   },
 
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      if (url.startsWith(baseUrl)) return url;
+      return `${baseUrl}/admin`;
+    },
+  },
+
   secret: process.env.NEXTAUTH_SECRET,
 });
 export { handler as GET, handler as POST };

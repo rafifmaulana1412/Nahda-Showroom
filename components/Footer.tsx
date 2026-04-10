@@ -20,8 +20,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Showroom mobil terpercaya dengan koleksi mobil baru dan bekas
-              berkualitas. Melayani dengan jujur dan profesional.
+              Showroom mobil bekas terpercaya dengan koleksi berkualitas.
+              Melayani dengan jujur dan profesional.
             </p>
           </div>
 

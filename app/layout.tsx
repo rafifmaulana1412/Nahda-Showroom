@@ -1,41 +1,40 @@
-"use client";
-
+import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Providers from "@/components/Provider";
+import ClientLayout from "@/components/ClientLayout";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+export const metadata: Metadata = {
+  title: "Nahda Showroom - Jual Beli Mobil Bekas Terpercaya",
+  description:
+    "Temukan mobil bekas berkualitas dengan harga terbaik di Nahda Showroom. Koleksi lengkap, surat resmi, proses mudah.",
+  openGraph: {
+    title: "Nahda Showroom - Jual Beli Mobil Bekas Terpercaya",
+    description:
+      "Temukan mobil bekas berkualitas dengan harga terbaik di Nahda Showroom.",
+    images: [
+      { url: "/logo.png", width: 512, height: 512, alt: "Nahda Showroom" },
+    ],
+    type: "website",
+    siteName: "Nahda Showroom",
+    locale: "id_ID",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nahda Showroom - Jual Beli Mobil Bekas Terpercaya",
+    description:
+      "Temukan mobil bekas berkualitas dengan harga terbaik di Nahda Showroom.",
+    images: ["/logo.png"],
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
   return (
     <html lang="id">
       <body className="bg-gray-50 text-gray-800 antialiased">
-        <Providers>
-          <Navbar />
-
-          {/* 🔥 ANIMASI HALAMAN */}
-          <AnimatePresence mode="wait">
-            <motion.main
-              key={pathname}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {children}
-            </motion.main>
-          </AnimatePresence>
-
-          <Footer />
-        </Providers>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

@@ -79,7 +79,7 @@ export default function TambahMobilPage() {
         >
           ← Kembali
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">Tambah Mobil Baru</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Tambah Mobil</h1>
         <div />
       </div>
 

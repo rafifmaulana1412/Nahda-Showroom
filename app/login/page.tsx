@@ -27,6 +27,7 @@ export default function AuthPage() {
         email,
         password,
         redirect: false,
+        callbackUrl: "/admin",
       });
 
       if (res?.ok) {

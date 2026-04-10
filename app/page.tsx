@@ -1,9 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-
 import CarCard from "@/components/CarCard";
 import NahdaLogo from "@/components/NahdaLogo";
 
@@ -18,7 +14,7 @@ const categories = [
   {
     label: "Mobil Bekas",
     icon: "🔑",
-    href: "/katalog?kondisi=bekas",
+    href: "/katalog",
     desc: "Terawat & bergaransi",
   },
   {
@@ -39,6 +35,12 @@ const categories = [
     href: "/kontak",
     desc: "Coba sebelum beli",
   },
+  {
+    label: "Hubungi Kami",
+    icon: "📞",
+    href: "/kontak",
+    desc: "Konsultasi gratis",
+  },
 ];
 
 const testimonials = [
@@ -54,44 +56,47 @@ const testimonials = [
   },
   {
     name: "Ahmad Fauzi",
-    text: "Harga kompetitif, pilihan banyak. Sudah 2 kali beli mobil di sini dan selalu puas.",
+    text: "Harga kompetitif, pilihan banyak. Sudah 2 kali beli mobil bekas di sini dan selalu puas.",
     rating: 5,
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const featured = await prisma.car.findMany({
+    where: { isFeatured: true, isAvailable: true },
+    orderBy: { createdAt: "desc" },
+    take: 8,
+  });
+
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
         </div>
-
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="bg-primary/20 text-primary text-sm font-medium px-3 py-1 rounded-full border border-primary/30">
-                  #1 Showroom Terpercaya
-                </span>
-              </div>
+              <span className="bg-primary/20 text-primary text-sm font-medium px-3 py-1 rounded-full border border-primary/30 inline-block mb-4">
+                #1 Showroom Mobil Bekas Terpercaya
+              </span>
               <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-                Temukan Mobil <span className="text-primary">Impian</span> Anda
-                di Nahda Showroom
+                Temukan Mobil Bekas <span className="text-primary">Impian</span>{" "}
+                Anda di Nahda Showroom
               </h1>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                Koleksi mobil baru dan bekas berkualitas dengan harga terbaik.
-                Proses mudah, pelayanan profesional, dan kepuasan pelanggan
-                adalah prioritas kami.
+                Koleksi mobil bekas berkualitas dengan harga terbaik. Proses
+                mudah, pelayanan profesional, dan kepuasan pelanggan adalah
+                prioritas kami.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/katalog" className="btn-primary text-base">
                   Lihat Katalog
                 </Link>
                 <a
-                  href="https://wa.me/6281234567890?text=Halo%20Nahda%20Showroom%2C%20saya%20ingin%20konsultasi"
+                  href="https://wa.me/6281234567890?text=Halo%20Nahda%20Showroom"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-outline text-base border-white text-white hover:bg-white hover:text-gray-900"
@@ -100,7 +105,6 @@ export default function HomePage() {
                 </a>
               </div>
             </div>
-
             <div className="hidden md:flex justify-center">
               <div className="relative">
                 <div className="w-72 h-72 bg-primary/20 rounded-full flex items-center justify-center border border-primary/30">
@@ -118,8 +122,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-        {/* Stats bar */}
         <div className="relative border-t border-white/10 bg-white/5 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
@@ -134,7 +136,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kategori */}
+      {/* Layanan */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
@@ -142,7 +144,7 @@ export default function HomePage() {
               Layanan Kami
             </h2>
             <p className="text-gray-500">
-              Semua kebutuhan mobil Anda tersedia di sini
+              Semua kebutuhan mobil bekas Anda tersedia di sini
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -163,7 +165,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Us */}
+      {/* Mobil Unggulan */}
+      {featured.length > 0 && (
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-10">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-1">
+                  Mobil Bekas Unggulan
+                </h2>
+                <p className="text-gray-500">
+                  Pilihan terbaik dari koleksi kami
+                </p>
+              </div>
+              <Link
+                href="/katalog"
+                className="btn-outline text-sm py-2 hidden md:block"
+              >
+                Lihat Semua
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {featured.map((car) => (
+                <CarCard key={car.id} car={car as any} />
+              ))}
+            </div>
+            <div className="text-center mt-8 md:hidden">
+              <Link href="/katalog" className="btn-primary">
+                Lihat Semua Mobil
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Keunggulan */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -178,33 +214,33 @@ export default function HomePage() {
             {[
               {
                 icon: "✅",
-                title: "Terpercaya & Transparan",
-                desc: "Setiap mobil telah melalui inspeksi ketat. Kami memberikan informasi lengkap dan jujur tentang kondisi kendaraan.",
+                title: "Inspeksi Ketat",
+                desc: "Setiap mobil bekas telah melalui inspeksi 50+ titik sebelum dijual.",
               },
               {
                 icon: "💰",
                 title: "Harga Terbaik",
-                desc: "Harga kompetitif tanpa biaya tersembunyi. Kami memastikan Anda mendapatkan nilai terbaik untuk setiap rupiah.",
+                desc: "Harga kompetitif tanpa biaya tersembunyi, nego langsung dengan pemilik.",
               },
               {
                 icon: "🤝",
                 title: "Layanan Purna Jual",
-                desc: "Dukungan after-sales yang responsif. Kami siap membantu Anda bahkan setelah transaksi selesai.",
+                desc: "Dukungan after-sales yang responsif bahkan setelah transaksi selesai.",
               },
               {
                 icon: "📋",
                 title: "Surat Lengkap",
-                desc: "Semua dokumen kendaraan lengkap dan resmi. BPKB, STNK, dan faktur tersedia untuk setiap unit.",
+                desc: "BPKB, STNK, dan faktur tersedia lengkap untuk setiap unit.",
               },
               {
                 icon: "🏦",
                 title: "Kemudahan Kredit",
-                desc: "Bekerja sama dengan berbagai lembaga keuangan terpercaya untuk memberikan opsi kredit terbaik.",
+                desc: "Bekerja sama dengan lembaga keuangan terpercaya untuk kredit terbaik.",
               },
               {
                 icon: "🔄",
                 title: "Tukar Tambah",
-                desc: "Layanan tukar tambah dengan proses cepat dan harga yang fair untuk kendaraan lama Anda.",
+                desc: "Proses tukar tambah cepat dengan harga fair untuk kendaraan lama Anda.",
               },
             ].map((item) => (
               <div
@@ -226,12 +262,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimoni */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Kata Pelanggan Kami
+              Kata Pembeli Kami
             </h2>
             <p className="text-gray-500">
               Kepuasan pelanggan adalah kebanggaan kami
@@ -264,15 +300,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Banner */}
+      {/* CTA */}
       <section className="py-16 bg-primary">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Siap Menemukan Mobil Impian Anda?
+            Cari Mobil Bekas Impian Anda?
           </h2>
           <p className="text-orange-100 mb-8 text-lg">
-            Hubungi kami sekarang dan dapatkan konsultasi gratis dari tim ahli
-            kami
+            Hubungi kami sekarang dan dapatkan konsultasi gratis
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -282,7 +317,7 @@ export default function HomePage() {
               Lihat Katalog
             </Link>
             <a
-              href="https://wa.me/62289677332497?text=Halo%20Nahda%20Showroom%2C%20saya%20ingin%20konsultasi%20mobil"
+              href="https://wa.me/6281234567890?text=Halo%20Nahda%20Showroom"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-transparent border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-primary transition-colors"

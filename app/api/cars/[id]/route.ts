@@ -32,6 +32,16 @@ export async function PUT(
     const { id } = await params;
     const body = await req.json();
 
+    // Kalau cuma toggle isAvailable
+    if (Object.keys(body).length === 1 && "isAvailable" in body) {
+      const car = await prisma.car.update({
+        where: { id },
+        data: { isAvailable: body.isAvailable },
+      });
+      return Response.json(car);
+    }
+
+    // Full update
     const car = await prisma.car.update({
       where: { id },
       data: {
@@ -49,9 +59,9 @@ export async function PUT(
           ? body.features.split(",").map((f: string) => f.trim())
           : [],
         images: body.images || [],
-        isAvailable: true,
-        isFeatured: false,
-        condition: "Bekas", // 🔥 biar ga error lagi
+        isAvailable: body.isAvailable ?? true,
+        isFeatured: body.isFeatured ?? false,
+        condition: body.condition || "bekas",
       },
     });
 
