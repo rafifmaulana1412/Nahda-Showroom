@@ -15,12 +15,20 @@ const handler = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        console.log("LOGIN ATTEMPT:", credentials.email);
+        console.log("ADMIN_EMAIL ENV:", process.env.ADMIN_EMAIL);
+
         // Email harus exact match dengan ADMIN_EMAIL di .env
-        if (credentials.email !== process.env.ADMIN_EMAIL) return null;
+        if (credentials.email !== process.env.ADMIN_EMAIL) {
+          console.log("EMAIL MISMATCH");
+          return null;
+        }
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
+
+        console.log("USER FOUND:", !!user);
 
         if (!user) return null;
 
@@ -28,6 +36,8 @@ const handler = NextAuth({
           credentials.password,
           user.password,
         );
+
+        console.log("PASSWORD VALID:", isValid);
 
         if (!isValid) return null;
 
