@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
@@ -14,6 +14,9 @@ const handler = NextAuth({
 
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+
+        // Email harus exact match dengan ADMIN_EMAIL di .env
+        if (credentials.email !== process.env.ADMIN_EMAIL) return null;
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
